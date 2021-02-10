@@ -10,6 +10,9 @@ app.use(express.static(__dirname));
 app.get('/',(req,res)=>{
     res.end('type your name in url.')
 });
+app.get('/showmemsg',(req,res)=>{
+    res.send(shit_to_print);
+});
 app.get('/:useradd',(req,res)=>{
     if (req.params.useradd!='favicon.ico' && !(req.params.useradd in shit_to_print)){
         usermsg = req.params.useradd;
@@ -23,7 +26,4 @@ app.post('/msgadd',(req,res)=>{
     shit_to_print[usermsg].push(req.body.msgbox01);
     res.redirect(usermsg);
 });
-app.get('showmemsg',(req,res)=>{
-    res.send(shit_to_print);
-});
-app.listen(8080)
+app.listen(3000);
