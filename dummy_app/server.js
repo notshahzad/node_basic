@@ -4,14 +4,21 @@ var app = express();
 var cdir = `${__dirname}/`;
 var shit_to_print = {};
 var usermsg;
+var adminpsswd = 'S4m_S3pi0l';
+var pswrdshow = false;
 app.use(bodyParser.urlencoded({extended : true}));
 app.set('view engine','ejs');
 app.use(express.static(__dirname));
 app.get('/',(req,res)=>{
-    res.end('type your name in url.')
+    res.end('type your name in url.');
 });
 app.get('/showmemsg',(req,res)=>{
-    res.send(shit_to_print);
+    if (pswrdshow){
+        res.send(shit_to_print);
+        pswrdshow = false;
+    }else{
+        res.render(`pschk`);
+    };
 });
 app.get('/:useradd',(req,res)=>{
     if (req.params.useradd!='favicon.ico' && !(req.params.useradd in shit_to_print)){
@@ -23,5 +30,13 @@ app.post('/msgadd',(req,res)=>{
     usermsg = req.body.name01;
     shit_to_print[usermsg].push(req.body.msgbox01);
     res.redirect(usermsg);
+});
+app.post('/pschck',(req,res)=>{
+    if (req.body.pschk01 == adminpsswd){
+        pswrdshow = true;
+        res.redirect('showmemsg');
+    }else{
+        res.end('wrong password!');
+    };
 });
 app.listen(3000);
