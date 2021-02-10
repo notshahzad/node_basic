@@ -8,7 +8,14 @@
 <body>
     <form action="/msgadd" method="POST">
     <input type="text" name="msgbox01" id="msgbox01">
+    <input type="hidden" name="name01" id="name01" value="01">
     <input type="submit">
+    <script>
+        var crnturl = window.location.href;
+        var urlval = crnturl.split('/')[1,3];
+        console.log(crnturl);
+        document.getElementById("name01").value = urlval;
+    </script>
     <p><%= shittoprint %></p>
     </form>
 </body>

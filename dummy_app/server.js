@@ -15,14 +15,12 @@ app.get('/showmemsg',(req,res)=>{
 });
 app.get('/:useradd',(req,res)=>{
     if (req.params.useradd!='favicon.ico' && !(req.params.useradd in shit_to_print)){
-        usermsg = req.params.useradd;
-        shit_to_print[usermsg] = [];
+        shit_to_print[req.params.useradd] = [];
     };
-    console.log(shit_to_print);
-    res.render('index',{'shittoprint' : shit_to_print[usermsg]});
+    res.render('index',{'shittoprint' : shit_to_print[req.params.useradd]});
 });
 app.post('/msgadd',(req,res)=>{
-    console.log(req.body.msgbox01);
+    usermsg = req.body.name01;
     shit_to_print[usermsg].push(req.body.msgbox01);
     res.redirect(usermsg);
 });
